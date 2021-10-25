@@ -69,7 +69,6 @@ if(strpos($tau, 'Internal server error')!==false)
 }
 else
 {   
-    echo "$tau\n";
     $codereff = getstr($tau, ',"data":"','"');
     echo "Points : $click\nReff : $reff\nCode Reff : $codereff\n";
 }
