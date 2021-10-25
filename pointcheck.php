@@ -27,7 +27,7 @@ function getstr($str, $exp1, $exp2)
 }
 
 //Isi KEY
-$key = "36ym86hnom31l6fkv6djrvdk4blp4o";
+$key = "KEY";
 
 
 click:
