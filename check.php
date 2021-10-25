@@ -49,6 +49,27 @@ else
 {
     $click = getstr($tau, '"points":"','"');
     $reff = getstr($tau, '"signUps30Days":',',');
-    echo "Points : $click\nReff : $reff\n";
-    exit();
+}
+
+$url = "https://api.lunarcrush.com/v2?data=share&key=$key";
+$headaers = array();
+$headears[] = "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36";
+$headears[] = "Accept: */*";
+$headears[] = "Sec-Gpc: 1";
+$headears[] = "Sec-Fetch-Site: same-site";
+$headears[] = "Sec-Fetch-Mode: cors";
+$headears[] = "Sec-Fetch-Dest: empty";
+$headears[] = "Accept-Encoding: gzip, deflate";
+$headears[] = "Accept-Language: en-GB,en-US;q=0.9,en;q=0.8";
+$data = '{"ratio":"square","ctxsource":"referral","share":"Referral","title":"Check out LunarCrush!","url":"/","tweet_text":"I use @LunarCrush to track social insights for cryptocurrencies. Check it out!\n\nhttps://lnr.app/s/{{shareId}} #LunarShare","description":"I use LunarCrush to track social insights for cryptocurrencies. Check it out!\n\nhttps://lnr.app/s/{{shareId}}","shareData":"\"url link\""}';
+$tau = request($url, $data, $headers);
+if(strpos($tau, 'Internal server error')!==false)
+{
+    goto click;
+}
+else
+{   
+    echo "$tau\n";
+    $codereff = getstr($tau, ',"data":"','"');
+    echo "Points : $click\nReff : $reff\nCode Reff : $codereff\n";
 }
