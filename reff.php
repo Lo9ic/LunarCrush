@@ -26,9 +26,8 @@ function getstr($str, $exp1, $exp2)
     return explode($exp2, $a)[0];
 }
 
-//ISI REFF
-$reff = "rWWRkK";
-
+Echo "Reff ? ";
+$reff = trim(fgets(STDIN));
 
 
 
