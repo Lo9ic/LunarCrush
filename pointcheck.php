@@ -26,9 +26,8 @@ function getstr($str, $exp1, $exp2)
     return explode($exp2, $a)[0];
 }
 
-//Isi KEY
-$key = "KEY";
-
+echo "Key ? ";
+$key = trim(fgets(STDIN));
 
 click:
 $url = "https://api.lunarcrush.com/v2?data=user&action=points-detail&key=$key";
@@ -49,8 +48,7 @@ if(strpos($tau, 'Internal server error')!==false)
 else
 {
     $click = getstr($tau, '"points":"','"');
-    $clicks = getstr($tau, '"shareClick":',',');
     $reff = getstr($tau, '"signUps30Days":',',');
-    echo "Points : $click\nClicks : $clicks\nReff : $reff";
+    echo "Points : $click\nReff : $reff";
     exit();
 }
