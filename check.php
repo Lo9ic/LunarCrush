@@ -49,6 +49,6 @@ else
 {
     $click = getstr($tau, '"points":"','"');
     $reff = getstr($tau, '"signUps30Days":',',');
-    echo "Points : $click\nReff : $reff";
+    echo "Points : $click\nReff : $reff\n";
     exit();
 }
