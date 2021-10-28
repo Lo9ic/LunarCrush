@@ -5,5 +5,5 @@
 
 #Dll
 
-1. Bagian reff di isi kode reff aja cnth https://lnr.app/s/kodereff 
-2. Yg di input kode reff aja
+1. Bagian reff di isi kode reff aja cnth https://lnr.app/s/kNtOL 
+2. Yg di input kode reff kNtOL
