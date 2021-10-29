@@ -82,7 +82,7 @@ echo "$email\n";
 
 echo "[3] Request OTP : ";
 reqotp:
-$url = "https://api.lunarcrush.com/v2?data=auth&action=get-code&version=asx33jf2&seed=$seed&email=$email&key=$token";
+$url = "https://api.lunarcrush.com/v2?data=auth&action=get-code&version=ksjdf7dfk3&seed=$seed&email=$email&key=$token";
 $headers = array();
 $headers[] = "Connection: close";
 $headers[] = "Accept-Encoding: gzip, deflate";
