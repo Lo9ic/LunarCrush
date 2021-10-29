@@ -122,7 +122,7 @@ if(strpos($getOTP, 'There is a request to sign in to your account from')!==false
 {
     $challenge = getstr($getOTP, 'challenge=','\u');
     $vtoken = getstr($getOTP, 'token=',' )');
-    echo "https://confirm.lnr.app/confirm?challenge=$challenge&token=$vtoken";
+    echo "https://confirm.lnr.app/confirm?challenge=$challenge&token=$vtoken\n";
 }
 else
 {
