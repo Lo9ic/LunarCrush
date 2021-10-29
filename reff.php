@@ -50,6 +50,7 @@ if(strpos($getToken, 'token')!==false)
 {
     $token = getstr($getToken, 'token":"','"');
     $seed = getstr($getToken, 'seed":',',');
+    echo "$token\n";
 }
 else if(strpos($getToken, 'Internal server error')!==false)
 {
