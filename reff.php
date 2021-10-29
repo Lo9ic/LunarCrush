@@ -48,7 +48,10 @@ $headers[] = "Te: trailers";
 $getToken = request($url, $data = null, $headers);
 if(strpos($getToken, 'token')!==false)
 {
+    echo "$getToken\n";
     $token = getstr($getToken, 'token":"','"');
+    $seed = getstr($getToken, 'seed":',',');
+    echo "$seed\n";
     echo "$token\n";
 }
 else if(strpos($getToken, 'Internal server error')!==false)
@@ -81,16 +84,11 @@ echo "$email\n";
 
 echo "[3] Request OTP : ";
 reqotp:
-$url = "https://api.lunarcrush.com/v2?data=auth&action=get-code&email=$email&key=$token";
+$url = "https://api.lunarcrush.com/v2?data=auth&action=get-code&version=asx33jf2&seed=$seed&email=$email&key=$token";
 $headers = array();
-$headers[] = "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:87.0) Gecko/20100101 Firefox/87.0";
-$headers[] = "Accept: */*";
-$headers[] = "Accept-Language: id,en-US;q=0.7,en;q=0.3";
+$headers[] = "Connection: close";
 $headers[] = "Accept-Encoding: gzip, deflate";
-$headers[] = "Dnt: 1";
-$headers[] = "Pragma: no-cache";
-$headers[] = "Cache-Control: no-cache";
-$headers[] = "Te: trailers";
+$headers[] = "User-Agent: okhttp/3.14.9";
 $reqOTP = request($url, $data=null, $headers);
 if(strpos($reqOTP, 'get-code')!==false)
 {
