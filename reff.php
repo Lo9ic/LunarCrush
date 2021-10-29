@@ -92,6 +92,7 @@ if(strpos($reqOTP, 'get-code')!==false)
 {
     echo "Sent!\n";
     $id = getstr($reqOTP, '"id":"','"');
+    $otptoken = getstr($reqOTP, '"verify_token":"','"');
 }
 else if(strpos($reqOTP, 'Internal server error')!==false)
 {
@@ -104,7 +105,7 @@ else
     exit();
 }
 
-echo "[4] Getting OTP : ";
+echo "[4] Getting Link Confirmation : ";
 otp:
 $url = "https://api.internal.temp-mail.io/api/v3/email/$email/messages";
 $headers = array();
@@ -119,40 +120,53 @@ $headers[] = "Te: trailers";
 $getOTP = request($url, $data=null, $headers);
 if(strpos($getOTP, 'There is a request to sign in to your account from')!==false)
 {
-    $otp = getstr($getOTP, 'device.*\n\n','\n\nTeam');
-    echo "$otp\n";
+    $challenge = getstr($getOTP, 'challenge=','\u');
+    $vtoken = getstr($getOTP, 'token=',' )');
+    echo "https://confirm.lnr.app/confirm?challenge=$challenge&token=$vtoken";
 }
 else
 {
     goto otp;
 }
 
-
-echo "[5] Try to Login : ";
-login:
-$url = "https://api.lunarcrush.com/v2?data=auth&action=login&challenge=$id&code=$otp&share=$reff&referral=&key=$token";
-$headers = array();
-$headers[] = "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:87.0) Gecko/20100101 Firefox/87.0";
-$headers[] = "Accept: */*";
-$headers[] = "Accept-Language: id,en-US;q=0.7,en;q=0.3";
+confirm:
+echo "[5] Confirm Email Link : ";
+$url = "https://api.lunarcrush.com/v2?data=auth&action=confirm-token&token=$vtoken&challenge=$challenge&key=$token";
+$header = array();
 $headers[] = "Accept-Encoding: gzip, deflate";
-$headers[] = "Dnt: 1";
-$headers[] = "Pragma: no-cache";
-$headers[] = "Cache-Control: no-cache";
-$headers[] = "Te: trailers";
-$login = request($url, $data=null, $headers);
-if(strpos($login, '"success":true')!==false)
+$headers[] = "User-Agent: okhttp/3.14.9";
+$confirm = request($url, $data = null, $headers);
+if(strpos($confirm, '"success":true')!==false)
 {
-    echo "Success!\n\n";
-    echo "[$i/$loop] Account Created\n\n";
+    echo "Confirmed\n";
 }
-else if(strpos($login, 'Internal server error')!==false)
+else if(strpos($confirm, 'Internal server error')!==false)
 {
-    goto login;
+    goto confirm;
 }
 else
 {
-    echo "Error!\n";
-    echo $login;
+    echo "Failed\n";
+    exit();
+}
+
+echo "[6] Submit Reff : ";
+$url = "https://api.lunarcrush.com/v2?data=auth&action=confirm-check&challenge=$id&verify_token=$otptoken&share=$reff&referral=&key=$token";
+$header = array();
+$headers[] = "Accept-Encoding: gzip, deflate";
+$headers[] = "User-Agent: okhttp/3.14.9";
+$reff = request($url, $data = null, $headers);
+if(strpos($reff, '"success":true')!==false)
+{
+    echo "Success\n";
+}
+else if(strpos($reff, 'Internal server error')!==false)
+{
+    goto confirm;
+}
+else
+{
+    echo "Failed\n";
+    exit();
 }
 }
