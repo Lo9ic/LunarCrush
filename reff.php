@@ -48,11 +48,8 @@ $headers[] = "Te: trailers";
 $getToken = request($url, $data = null, $headers);
 if(strpos($getToken, 'token')!==false)
 {
-    echo "$getToken\n";
     $token = getstr($getToken, 'token":"','"');
     $seed = getstr($getToken, 'seed":',',');
-    echo "$seed\n";
-    echo "$token\n";
 }
 else if(strpos($getToken, 'Internal server error')!==false)
 {
